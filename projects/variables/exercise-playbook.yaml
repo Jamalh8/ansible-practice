@@ -1,0 +1,17 @@
+- hosts: all
+  become: true
+  tasks:
+  - name: Clone git repo
+    git:
+      repo: https://github.com/Jamalh8/Travel-app.git
+      dest: /home/jamal/projects/ansible-examples
+
+  - name: copy hostname to a file
+    copy:
+      content: "{{ ansible_default_ipv4.address }}"
+      dest: "/home/jamal/projects/host.txt"
+
+  - name: Message if OS is Ubuntu
+    debug:
+      msg: "{{ ansible_distribution }}"
+    when: ansible_distribution == "Ubuntu"
